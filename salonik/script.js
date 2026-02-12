@@ -11,6 +11,12 @@ const revealCards = Array.from(
 );
 
 if (menuToggle && navActions) {
+  const closeMenu = () => {
+    navActions.classList.remove("open");
+    menuToggle.classList.remove("active");
+    menuToggle.setAttribute("aria-expanded", "false");
+  };
+
   menuToggle.addEventListener("click", () => {
     const isOpen = navActions.classList.toggle("open");
     menuToggle.classList.toggle("active", isOpen);
@@ -20,17 +26,19 @@ if (menuToggle && navActions) {
   document.addEventListener("click", (event) => {
     const clickedInside = navActions.contains(event.target) || menuToggle.contains(event.target);
     if (!clickedInside && navActions.classList.contains("open")) {
-      navActions.classList.remove("open");
-      menuToggle.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
+      closeMenu();
     }
+  });
+
+  navActions.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
   });
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 1024 && navActions.classList.contains("open")) {
-      navActions.classList.remove("open");
-      menuToggle.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
+      closeMenu();
     }
   });
 }

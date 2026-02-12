@@ -8,6 +8,8 @@
   --accent-strong: #ff7d00;
   --card-bg: rgba(22, 15, 29, 0.55);
   --border-soft: rgba(255, 255, 255, 0.08);
+  --portfolio-bg-image: url("images/portfolio bg 2.jpeg");
+  --text-clarity-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -21,30 +23,60 @@ body {
 }
 
 body {
+  position: relative;
+  isolation: isolate;
   font-family: "Poppins", sans-serif;
   color: var(--text-main);
-  background: linear-gradient(110deg, var(--bg-navy) 0%, var(--bg-wine) 56%, var(--bg-orange) 100%);
+  background: linear-gradient(112deg, rgba(8, 10, 23, 0.72), rgba(41, 13, 21, 0.68));
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--portfolio-bg-image) center / cover no-repeat;
+  opacity: 0.06;
+  z-index: -2;
+  pointer-events: none;
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1200;
   padding: 18px 0 14px;
 }
 
 .navbar {
+  position: relative;
   width: min(1180px, 92%);
   margin: 0 auto;
   padding: 12px 18px;
   border-radius: 18px;
+  overflow: hidden;
+  isolation: isolate;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(145deg, rgba(13, 19, 46, 0.84), rgba(35, 15, 34, 0.86));
+  background: linear-gradient(145deg, rgba(8, 11, 24, 0.74), rgba(29, 12, 24, 0.72));
   box-shadow:
     0 14px 30px rgba(0, 0, 0, 0.28),
     inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--portfolio-bg-image) center / cover no-repeat;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+section[id] {
+  scroll-margin-top: 112px;
 }
 
 .logo {
@@ -97,6 +129,7 @@ body {
 
 .logo-name {
   color: #ffe0b8;
+  text-shadow: var(--text-clarity-shadow);
 }
 
 .logo-accent {
@@ -127,6 +160,7 @@ body {
   font-size: 0.88rem;
   font-weight: 500;
   opacity: 0.9;
+  text-shadow: var(--text-clarity-shadow);
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 
@@ -192,10 +226,23 @@ body {
 }
 
 .hero {
+  position: relative;
   padding: clamp(22px, 5vw, 62px) 0 48px;
   min-height: calc(100vh - 110px);
   display: flex;
   align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(112deg, rgba(8, 10, 23, 0.74), rgba(41, 13, 21, 0.7));
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--portfolio-bg-image) center / cover no-repeat;
+  opacity: 0.05;
+  z-index: -1;
 }
 
 .hero-inner {
@@ -217,6 +264,7 @@ body {
   line-height: 1.08;
   letter-spacing: 0.2px;
   color: #fdf4eb;
+  text-shadow: var(--text-clarity-shadow);
 }
 
 .hero-title span {
@@ -228,6 +276,7 @@ body {
   font-size: clamp(0.95rem, 0.9rem + 0.35vw, 1.18rem);
   font-weight: 700;
   color: #efddc9;
+  text-shadow: var(--text-clarity-shadow);
 }
 
 .hero-description {
@@ -236,6 +285,7 @@ body {
   font-size: clamp(0.96rem, 0.92rem + 0.25vw, 1.08rem);
   line-height: 1.72;
   color: #d8c8b9;
+  text-shadow: var(--text-clarity-shadow);
 }
 
 .hero-actions {
@@ -392,22 +442,36 @@ body {
   }
 
   .nav-actions {
-    position: absolute;
-    top: 96px;
+    position: fixed;
+    top: 92px;
+    left: 4%;
     right: 4%;
-    width: min(360px, 92vw);
+    width: auto;
+    max-height: calc(100dvh - 108px);
+    overflow-y: auto;
+    z-index: 1205;
     display: grid;
     gap: 16px;
     padding: 16px;
     border-radius: 16px;
+    overflow: hidden;
+    isolation: isolate;
     border: 1px solid var(--border-soft);
-    background: rgba(14, 9, 20, 0.92);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(145deg, rgba(8, 10, 20, 0.8), rgba(23, 11, 19, 0.78));
     transform-origin: top right;
     transform: scale(0.98);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  }
+
+  .nav-actions::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--portfolio-bg-image) center / cover no-repeat;
+    opacity: 0.04;
+    z-index: -1;
   }
 
   .nav-actions.open {
@@ -420,6 +484,13 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    font-size: 0.96rem;
+    padding: 4px 0;
   }
 
   .cta-btn {
@@ -511,6 +582,7 @@ body {
   line-height: 1.18;
   color: #f9efe4;
   letter-spacing: 0.3px;
+  text-shadow: var(--text-clarity-shadow);
 }
 
 .section-title span {
@@ -522,6 +594,16 @@ body {
   color: #cdbfb4;
   font-size: clamp(0.72rem, 0.69rem + 0.16vw, 0.84rem);
   line-height: 1.65;
+  text-shadow: var(--text-clarity-shadow);
+}
+
+.education-card h3,
+.skills-card h3,
+.project-content h3,
+.contact-title,
+.contact-title-sm,
+.footer-panel h4 {
+  text-shadow: var(--text-clarity-shadow);
 }
 
 .services-grid {
@@ -538,7 +620,6 @@ body {
   box-shadow:
     0 18px 38px rgba(0, 0, 0, 0.35),
     inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(6px);
   transition:
     transform 0.18s ease,
     border-color 0.18s ease,
@@ -547,7 +628,6 @@ body {
     filter 0.35s ease;
   opacity: 0;
   transform: translateY(26px);
-  filter: blur(4px);
 }
 
 .service-card:hover {
@@ -561,7 +641,6 @@ body {
 .service-card.in-view {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
 .service-icon {
@@ -723,7 +802,6 @@ body {
     inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   opacity: 0;
   transform: translateY(22px);
-  filter: blur(4px);
   transition:
     opacity 0.35s ease,
     transform 0.35s ease,
@@ -746,7 +824,6 @@ body {
 .education-card.in-view {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
 .education-card:hover {
@@ -822,7 +899,6 @@ body {
     inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   opacity: 0;
   transform: translateY(20px);
-  filter: blur(4px);
   transition:
     opacity 0.35s ease,
     transform 0.35s ease,
@@ -834,7 +910,6 @@ body {
 .skills-card.in-view {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
 .skills-card:hover {
@@ -1046,7 +1121,6 @@ body {
     inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   opacity: 0;
   transform: translateY(20px);
-  filter: blur(4px);
   transition:
     opacity 0.35s ease,
     transform 0.35s ease,
@@ -1058,7 +1132,6 @@ body {
 .contact-card.in-view {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
 .contact-card:hover {
@@ -1420,3 +1493,4 @@ body {
     justify-content: flex-start;
   }
 }
+
